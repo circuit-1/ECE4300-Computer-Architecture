@@ -12,10 +12,10 @@ module regfile(
   reg [31:0] gpr [31:0];
   
   always @(posedge clk) begin
-    if (rst) begin
+    if (rst) begin //resets all registers to 0 when reset triggered
       for (integer i = 0; i < 32; i = i + 1)
           gpr[i] <= 32'b0;
-    end else if (regwrite) begin
+    end else if (regwrite) begin //writes writedata into register destination (rd) when regwrite == 1
       gpr[rd] <= writedata;
     end
   end
