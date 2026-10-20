@@ -6,8 +6,23 @@ module regfile(
   input [4:0] rt,
   input [4:0] rd,
   input [31:0] writedata,
-  output [31:0] A_readdat1,
-  output [31:0] B_readdat2
+  output reg [31:0] A_readdat1,
+  output reg [31:0] B_readdat2
 );
+  reg [31:0] gpr [31:0];
   
+  always @(posedge clk) begin
+    if (rst) begin
+      for (integer i = 0; i < 32; i = i + 1)
+          gpr[i] <= 32'b0;
+    end else if (regwrite) begin
+      gpr[rd] <= writedata;
+    end
+    
+    always @(*) begin
+      A_readdat1 = gpr[rs];
+      B_readdat2 = gpr[rt];
+    end
+    
+  end
 endmodule
