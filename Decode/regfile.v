@@ -18,11 +18,11 @@ module regfile(
     end else if (regwrite) begin
       gpr[rd] <= writedata;
     end
-    
+  end
+  
     always @(*) begin
       A_readdat1 = gpr[rs];
       B_readdat2 = gpr[rt];
     end
     
-  end
 endmodule
