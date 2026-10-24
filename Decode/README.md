@@ -32,7 +32,7 @@ The Decode stage is organized as a combinational datapath followed by a clocked 
 
 The assignment datapath is represented by the provided ID/EX design diagram:
 
-![Decode-stage waveform](Decode/Waveforms/decode.png)
+![Decode-stage waveform](Waveforms/decode.png)
 
 ## Implementation
 
