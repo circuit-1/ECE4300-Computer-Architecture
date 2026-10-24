@@ -13,11 +13,11 @@ This project implements the Decode (ID) stage of a 32-bit MIPS-style five-stage 
 
 |Requirement|Description|Verification Method|
 |-|-|-|
-|REQ-01|The design shall decode R-format, `lw`, `sw`, and `beq` opcodes into the required WB, memory, and execution control fields.|`ctrl\\\_tb.v` and `Waveforms/ctrl.png`|
-|REQ-02|The register file shall write `writedata` to the selected destination when `regwrite` is asserted and shall provide the two selected register values for reading.|`regfile\\\_tb.v` and `Waveforms/regfile.png`|
-|REQ-03|The sign extender shall replicate bit 15 across the upper 16 output bits.|`signex\\\_tb.v` and `Waveforms/signex.png`|
-|REQ-04|The ID/EX latch shall capture control signals, NPC, register data, sign-extended immediate, and instruction register fields on a rising clock edge.|`idexlatch\\\_tb.v` and `Waveforms/idexlatch.png`|
-|REQ-05|The integrated Decode stage shall connect the control unit, register file, sign extender, and ID/EX latch.|`decode\\\_tb.v` and `Waveforms/decode.png`|
+|REQ-01|The design shall decode R-format, `lw`, `sw`, and `beq` opcodes into the required WB, memory, and execution control fields.|`ctrl_tb.v` and `Waveforms/ctrl.png`|
+|REQ-02|The register file shall write `writedata` to the selected destination when `regwrite` is asserted and shall provide the two selected register values for reading.|`regfile_tb.v` and `Waveforms/regfile.png`|
+|REQ-03|The sign extender shall replicate bit 15 across the upper 16 output bits.|`signex_tb.v` and `Waveforms/signex.png`|
+|REQ-04|The ID/EX latch shall capture control signals, NPC, register data, sign-extended immediate, and instruction register fields on a rising clock edge.|`idexlatch_tb.v` and `Waveforms/idexlatch.png`|
+|REQ-05|The integrated Decode stage shall connect the control unit, register file, sign extender, and ID/EX latch.|`decode_tb.v` and `Waveforms/decode.png`|
 
 ## Architecture
 
@@ -25,14 +25,14 @@ This project implements the Decode (ID) stage of a 32-bit MIPS-style five-stage 
 
 The Decode stage is organized as a combinational datapath followed by a clocked ID/EX boundary:
 
-1. `if\\\_id\\\_latch\\\[31:26]` enters `control` to produce WB, memory, and execution control fields.
-2. `if\\\_id\\\_latch\\\[25:21]` and `if\\\_id\\\_latch\\\[20:16]` select the two register-file read ports.
-3. `if\\\_id\\\_latch\\\[15:0]` enters `signEx` and becomes a 32-bit signed immediate.
+1. `if_id_latch[31:26]` enters `control` to produce WB, memory, and execution control fields.
+2. `if_id_latch[25:21]` and `if_id_latch[20:16]` select the two register-file read ports.
+3. `if_id_latch[15:0]` enters `signEx` and becomes a 32-bit signed immediate.
 4. The register values, immediate, instruction fields, NPC, and decoded controls are captured by `idexlatch`.
 
 The assignment datapath is represented by the provided ID/EX design diagram:
 
-!\[Decode-stage waveform](Waveforms/decode.png)
+!\[Decode-stage waveform](Decode/Waveforms/decode.png)
 
 ## Implementation
 
@@ -45,7 +45,7 @@ The assignment datapath is represented by the provided ID/EX design diagram:
 |[`regfile.v`](regfile.v)|32 × 32-bit register file with two read ports and one write port.|
 |[`signex.v`](signex.v)|Combinational 16-bit to 32-bit sign extender.|
 |[`idexlatch.v`](idexlatch.v)|Rising-edge ID/EX pipeline latch.|
-|[`Testbench/decode\\\_tb.v`](Testbench/decode_tb.v)|Integrated Decode-stage testbench.|
+|[`Testbench/decode_tb.v`](Testbench/decode_tb.v)|Integrated Decode-stage testbench.|
 
 ### Implementation Notes
 
@@ -66,7 +66,7 @@ Verification covers:
 * Positive and negative 16-bit immediates for sign extension.
 * Reset behavior for the register file and ID/EX latch.
 * Register writes followed by reads from the written locations.
-* An unsupported opcode in `ctrl\\\_tb.v`, which should produce zero control signals.
+* An unsupported opcode in `ctrl_tb.v`, which should produce zero control signals.
 
 ### Testbench and Waveform
 
@@ -118,11 +118,11 @@ The testbench runs through reset, register-file writes, and `lw`, `sw`, and `beq
 ├── regfile.v
 ├── signex.v
 ├── Testbench/
-│   ├── ctrl\\\_tb.v
-│   ├── decode\\\_tb.v
-│   ├── idexlatch\\\_tb.v
-│   ├── regfile\\\_tb.v
-│   └── signex\\\_tb.v
+│   ├── ctrl_tb.v
+│   ├── decode_tb.v
+│   ├── idexlatch_tb.v
+│   ├── regfile_tb.v
+│   └── signex_tb.v
 └── Waveforms/
     ├── ctrl.png
     ├── decode.png
