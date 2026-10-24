@@ -58,7 +58,7 @@ The assignment datapath is represented by the provided ID/EX design diagram:
 
 ### Verification Strategy
 
-The design is verified using **event-driven Verilog simulation and waveform inspection**. Separate unit testbenches exercise each required module, and `decode\\\_tb.v` exercises the integrated stage.
+The design is verified using **event-driven Verilog simulation and waveform inspection**. Separate unit testbenches exercise each required module, and `decode_tb.v` exercises the integrated stage.
 
 Verification covers:
 
