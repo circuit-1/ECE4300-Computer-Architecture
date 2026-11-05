@@ -2,14 +2,16 @@
 
 module executeTB;
     reg clk;
-    reg [1:0] ctlwb_in, ctlm_in;
+    reg [1:0] ctlwb_in;
+    reg [2:0] ctlm_in;
     reg [31:0] npc, rdata1, rdata2, s_extend;
     reg [4:0] instr_2016, instr_1511;
     reg [1:0] alu_op;
     reg [5:0] funct;
     reg alusrc, regdst;
 
-    wire [1:0] ctlwb_out, ctlm_out;
+    wire [1:0] ctlwb_out;
+    wire [2:0] ctlm_out;
     wire [31:0] adder_out, alu_result_out, rdata2_out;
     wire [4:0] muxout_out;
 
@@ -42,7 +44,7 @@ module executeTB;
 
     initial begin
         // Initialize inputs
-        ctlwb_in = 2'b10; ctlm_in = 2'b01;
+        ctlwb_in = 2'b10; ctlm_in = 3'b001;
         npc = 32'd100; rdata1 = 32'd10; rdata2 = 32'd20; s_extend = 32'd4;
         instr_2016 = 5'd5; instr_1511 = 5'd10;
         alu_op = 2'b10; funct = 6'b100000;

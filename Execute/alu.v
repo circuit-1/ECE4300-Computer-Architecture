@@ -18,26 +18,20 @@ ALUand = 3'b000,
 ALUor = 3'b001,
 ALUslt = 3'b111;
 // Handles negative inputs
-wire sign_mismatch; // 1 bit
-//assign sign_mismatch = 1'b0; // Set this up so that the ALUslt conditions match
-assign sign_mismatch = a[31]^b[31]; //XOR operation; only returns 1 if bits are different 
-initial
-result <= 0;
-always@*
-case(control)
-ALUadd: result = a + b;
-ALUsub: result = a - b;
-ALUand: result = a & b; // changed to bit-wise AND, should not be logical AND
-ALUor: result = a | b; // changes to bit-wise OR,  should not be logical OR
-ALUslt: result = a < b ? 1 - sign_mismatch // (1)
-: 0 + sign_mismatch; // (0)
-default: result = 32'bX; // control = ALUx | *
-endcase
+always @* begin
+    case (control)
+        ALUadd: result = a + b;
+        ALUsub: result = a - b;
+        ALUand: result = a & b;
+        ALUor:  result = a | b;
+        // SLT is a signed comparison, as required by the MIPS operation.
+        ALUslt: result = ($signed(a) < $signed(b)) ? 32'd1 : 32'd0;
+        default: result = 32'bX;
+    endcase
+end
 // check to see if result is equal to zero. if it is assign it true (1), false (0) otherwise, meaning it is a non-zero number
-/* result = (condition1) ? rA :
-(condition2) ? rB :
-                                 rC) */
-assign zero = (result == 0) ? 1 : 0;
+/* result = (condition1) ? rA : (condition2) ? rB : rC) */
+assign zero = (result == 32'd0);
 endmodule
 //If the input information does not correspond to any valid instruction,
 //aluop = 2'b11 which sets control = ALUx = 3'b011 
