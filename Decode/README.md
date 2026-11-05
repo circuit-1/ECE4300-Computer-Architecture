@@ -7,7 +7,7 @@ This project implements the Decode (ID) stage of a 32-bit MIPS-style five-stage 
 * **In scope:** The control unit, 32-register file, 16-to-32-bit sign extender, ID/EX pipeline latch, and their integration in `decode.v`.
 * **Out of scope:** Instruction fetch, ALU execution, branch-address generation, data memory, memory-stage forwarding, and write-back control generation.
 * **Assumptions:** Instructions and data are 32 bits wide; register addresses are 5 bits; immediates are 16 bits; state updates occur on the rising clock edge; reset is active high; and the register file is initialized to zero by reset.
-* **Limitations:** The implementation supports the instruction cases specified for the assignment—R-format, `lw`, `sw`, and `beq`. Unsupported opcodes receive zeroed control signals. No forwarding, hazard detection, or special handling for register 0 is implemented.
+* **Limitations:** The implementation supports the instruction cases specified for the assignment—R-format, `lw`, `sw`, and `beq`. Unsupported opcodes receive zeroed control signals.
 
 ## Requirements
 
@@ -72,7 +72,7 @@ Verification covers:
 
 Waveform screenshots are stored in the repository’s `Waveforms/` folder.
 
-!\[Decode-stage waveform](Waveforms/decode.png)
+![Decode-stage waveform](Waveforms/decode.png)
 
 The integrated testbench source is available [*here*](Testbench/decode_tb.v). Unit testbenches are available for the [control unit](Testbench/ctrl_tb.v), [register file](Testbench/regfile_tb.v), [sign extender](Testbench/signex_tb.v), and [ID/EX latch](Testbench/idexlatch_tb.v).
 
@@ -98,7 +98,7 @@ The integrated testbench source is available [*here*](Testbench/decode_tb.v). Un
 ### Build and Run
 
 ```bash
-# Run Vivado Behavioral simulation using decode_tb.v as simulation source
+Run Vivado Behavioral simulation using decode_tb.v as simulation source
 ```
 
 Expected output:
