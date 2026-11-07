@@ -81,17 +81,15 @@ The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
 
 ### Tools and Versions
 
-- **Simulator / synthesis tool:** [Name and version]
-- **Language / standard:** [Verilog/SystemVerilog version]
-- **Operating system:** [macOS, Windows, Linux, or other]
-- **Additional dependencies:** [List any required tools or libraries]
+- **Simulator / synthesis tool:** Vivado
+- **Language / standard:** Verilog HDL
+- **Operating system:** macOS, Windows, Linux, or other
+- **Additional dependencies:** No external libraries are required
 
 ### Build and Run
 
 ```bash
-# Replace these commands with the commands required for this lab.
-[compile-command]
-[run-command]
+Run Vivado Behavioral simulation using execute_tb.v as simulation source
 ```
 
 Expected output:
@@ -130,8 +128,3 @@ Expected output:
 ├── execute.v
 ├── Testbench
 ```
-
-## Known Issues and Future Improvements
-
-- [Document any known issue, unverified behavior, or technical debt.]
-- [Describe a realistic improvement or extension.]
