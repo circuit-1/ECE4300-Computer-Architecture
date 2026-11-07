@@ -63,11 +63,12 @@ Verification covers:
 
 ### Testbench and Waveform
 
-Save screenshots and waveform images in the repository's `images/` folder.
+Waveform screenshots are stored in the repository’s `Waveforms/` folder.
 
-![Testbench or waveform](images/[testbench-screenshot-filename].png)
 
-The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
+![Testbench or waveform](Waveforms/execute.png)
+
+The testbench source is available [*here*](Testbench/execute_tb.v). Unit testbenches are available for the [adder](Testbench/adder_tb.v), [alu_control](Testbench/alu_control_tb.v), [alu](Testbench/alu_tb.v), [bottom_mux](Testbench/bottom_mux_tb.v), [ex_mem](Testbench/ex_mem.v), [top_mux](Testbench/top_mux_tb.v).
 
 ### Results
 
