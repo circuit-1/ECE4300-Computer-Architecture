@@ -105,11 +105,30 @@ Expected output:
 ```text
 .
 ├── README.md
-├── images/
-│   ├── [timing-diagram-filename].png
-│   └── [testbench-screenshot-filename].png
-├── [source-files]
-└── [testbench-files]
+├── Testbench
+│   ├── adder_tb.v
+│   ├── alu_control_tb.v
+│   ├── alu_tb.v
+│   ├── bottom_mux_tb.v
+│   ├── ex_mem_tb.v
+│   ├── execute_tb.v
+│   ├── top_mux_tb.v
+├── Waveforms
+│   ├── adder_tb.png
+│   ├── alu.png
+│   ├── alu_top.png
+│   ├── bottom_mux.png
+│   ├── ex_mem.png
+│   ├── execute.png
+│   ├── top_mux.png
+├── adder.v
+├── alu.v
+├── alu_control.v
+├── bottom_mux.v
+├── ex_mem.v
+├── top_mux.v
+├── execute.v
+├── Testbench
 ```
 
 ## Known Issues and Future Improvements
