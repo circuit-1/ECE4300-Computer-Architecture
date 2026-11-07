@@ -74,9 +74,12 @@ The testbench source is available [*here*](Testbench/execute_tb.v). Unit testben
 
 | Test Case | Expected Result | Observed Result | Status |
 |---|---|---|---|
-| TC-01 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
-| TC-02 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
-| TC-03 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
+| TC-01 — [ALU Control] | [ALUOp and function codes generate the correct ALU operation signals.] | [Waveform shows the expected control signals for ADD, SUB, AND, OR, and SLT.] | Pass |
+| TC-02 — [ALU Operations] | [ALU performs ADD, SUB, AND, OR, and SLT correctly using 32-bit inputs.] | [Waveform shows the expected arithmetic and logical results.] | Pass |
+| TC-03 — [Multiplexer ] | [ALUSrc selects the correct ALU operand, and RegDst selects the destination register.] | [Waveform shows the correct outputs based on the selection signals.] | Pass |
+| TC-04 — [Adder] | [The adder calculates the correct branch-target address from its two inputs.] | [Waveform shows the expected 32-bit addition results.] | Pass |
+| TC-05 — [EX/MEM] | [Inputs are captured and stored on each rising clock edge.] | [Waveform shows the ALU result, zero flag, destination register, and control signals being captured.] | Pass |
+| TC-06 — [Integrated Execute] | [The Execute stage produces the correct ALU results, branch addresses, and EX/MEM outputs.] | [Waveform shows the expected results for the tested operations and control inputs.] | Pass |
 
 ## Reproduction Instructions
 
@@ -96,7 +99,7 @@ Run Vivado Behavioral simulation using execute_tb.v as simulation source
 Expected output:
 
 ```text
-[Paste a short representative output or result here.]
+The testbench verifies ALU operations, branch address calculations, and EX/MEM register behavior. The results are checked using Vivado simulation waveforms. 
 ```
 
 ## Repository Organization
