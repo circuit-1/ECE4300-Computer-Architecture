@@ -48,10 +48,9 @@ Save diagrams in the repository's `images/` folder. Use relative paths so they d
 
 ### Implementation Notes
 
-- [Explain one important design decision.]
-- [Identify any parameterization, reusable module, or interface convention.]
-- [Document any deliberate simplification made for this lab.]
-
+- The `alu_control` module decodes the 2-bit `alu_op` and the lower 6 bits of the sign-extended immediate (`s_extend[5:0]`) using nested case statements, cleanly separating instruction type interpretation from execution while implementing a safe fallback state (`ALUx`/`3'b011`) for unknown instructions.
+- Standardized width conventions are maintained across all modules: 32-bit data paths for operants and addresses, 5-bit busses for register specifiers(`instr_2016` and `instr_1511`), and structured signal bundling into the synchronous `ex_mem` pipeline register on the rising edge of `clk`.
+- Pipeline data forwarding paths and hazard-detection stall units have been excluded to keep the EX stage scope focused on only combinational execution, address calculation, and pipeline register handoff.
 ## Verification
 
 ### Verification Strategy
