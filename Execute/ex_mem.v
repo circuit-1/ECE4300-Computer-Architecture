@@ -11,7 +11,7 @@ module ex_mem(
     input wire [31:0] aluout, readdat2,
     input wire [4:0] muxout,
     output reg [1:0] wb_ctlout,
-    output reg branch, memread, memwrite, //output of M control line from ID/EX latch
+    output reg [2:0] mem_ctlout,
     output reg [31:0] add_result,
     output reg zero,
     output reg [31:0] alu_result, rdata2out,
@@ -19,10 +19,7 @@ module ex_mem(
         );
 always @(posedge clk) begin
     wb_ctlout <= ctlwb_out;
-    branch <= ctlm_out[2];    
-    memread <= ctlm_out[1];       
-    memwrite <= ctlm_out[0];     
-                                                  
+    mem_ctlout <= ctlm_out;                                                  
     add_result <= adder_out;   
     zero <= aluzero;
     alu_result <= aluout;
