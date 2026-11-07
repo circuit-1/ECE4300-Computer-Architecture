@@ -8,9 +8,9 @@ Keep this README focused on what the design does, how it is used, and how it was
 ## Design Scope and Assumptions
 
 - **In scope:** Implement Execute stage of the MIPS, including ALU operations, ALU Control, adder, multiplexers, and ex/mem pipeline. 
-- **Out of scope:** [What this lab intentionally does not implement]
-- **Assumptions:** [Clock frequency, reset behavior, data width, memory model, or other assumptions]
-- **Limitations:** [Known limitations or simplified behaviors]
+- **Out of scope:** Other stages, such as Instruction Fetch(`IF`), Instruction Decode(`ID`), Data Memory(`MEM`), and Write-Back(`WB`) stages.
+- **Assumptions:** It is assumed that preceding pipeline registers (`ID`/`EX`) give a clean and stable 32-bit operaNDS(`ReadData1`, `ReadData2`, `SignExtend`, `NPC`).  Control lines (`ALUOp`, `ALUSrc`, `RegDst`, `WB`, `Mem`) are also assumed to be correctly generated and synchronized from main control unit. The clock also acts as a pure square wave with no defects. 
+- **Limitations:** This current arrangement has no exception handling, like overflow in ALU, arithmetic traps, or error flags beyond the 1-bit `0` used for branching. Execution logic is also limited to a specified subset(`lw`, `sw`, `beq`, `add`, `sub`, `and`, `or`, `slt`).
 
 ## Requirements
 
