@@ -20,6 +20,9 @@ Keep this README focused on what the design does, how it is used, and how it was
 | REQ-02 | The design shall provide a 32-bit multiplexer controlled by `ALUSrc` to select the second operand for the ALU: choosing `ReadData2 `(for R-type instructions) or `SignExtend` (for load, store, and immediate/branch instructions). | `top_mux_tb.v` and `Waveforms/top_mux.png` |
 | REQ-03 | The design shall include an adder that combines the Next Program Counter `NPC` value with the sign-extended offset `SignExtend` to produce the branch target address `Add_Result`. | `adder_tb.v`, and `Waveforms/adder.png` |
 | REQ-04 | The design shall synchronously latch all control signals (`WB`, `Mem`) and data outputs (`Add_Result`, `Zero`, `ALU_Result`, `ReadData2_ex_mem`, `FiveBitMuxout`) on the rising edge of the system clock (`CLK`) to maintain proper pipeline staging. | `ex_mem_tb.v` and `Waveforms/ex_mem.png` |
+| REQ-05 | The design shall take two 32-bit input operands (one from `ReadData1`, the other selected via the `ALUSrc` multiplexer) and execute the operation specified by the 3-bit ALU control lines. | `alu_tb.v` and `Waveforms/alu.png`|
+| REQ-06 | The design shall provide a 5-bit 2-to-1 multiplexer controlled by the `RegDst` signal and shall route `Instr_2016` (`rt`, bits 20–16) when `RegDst` is `0` or `Instr_1511` (`rd`, bits 15–11) when `RegDst` is `1`, outputting the destination as `FiveBitMuxout`. | `bottom_mux_tb.v` and `Waveforms/bottom_mux.png` |
+
 
 ## Architecture
 
