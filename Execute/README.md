@@ -30,7 +30,7 @@ Keep this README focused on what the design does, how it is used, and how it was
 
 Save diagrams in the repository's `images/` folder. Use relative paths so they display on GitHub.
 
-![Timing Diagram](images/[timing-diagram-filename].png)
+![Timing Diagram](Waveforms/execute.png)
 
 ## Implementation
 
