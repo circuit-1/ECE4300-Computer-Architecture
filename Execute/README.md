@@ -16,9 +16,10 @@ Keep this README focused on what the design does, how it is used, and how it was
 
 | Requirement | Description | Verification Method |
 |---|---|---|
-| REQ-01 | [The design shall ...] | [Test case, waveform, calculation, or inspection] |
-| REQ-02 | [The design shall ...] | [Test case, waveform, calculation, or inspection] |
-| REQ-03 | [The design shall ...] | [Test case, waveform, calculation, or inspection] |
+| REQ-01 | The design shall decode a 6-bit function field `Instr[5:0]` alongside a 2-bit `ALUOp` signal to generate the correct 3-bit ALU control input. | [Test case, waveform, calculation, or inspection] |
+| REQ-02 | The design shall provide a 32-bit multiplexer controlled by `ALUSrc` to select the second operand for the ALU: choosing `ReadData2 `(for R-type instructions) or `SignExtend` (for load, store, and immediate/branch instructions). | [Test case, waveform, calculation, or inspection] |
+| REQ-03 | The design shall include an adder that combines the Next Program Counter `NPC` value with the sign-extended offset `SignExtend` to produce the branch target address `Add_Result`. | [Test case, waveform, calculation, or inspection] |
+| REQ-04 | The design shall synchronously latch all control signals (`WB`, `Mem`) and data outputs (`Add_Result`, `Zero`, `ALU_Result`, `ReadData2_ex_mem`, `FiveBitMuxout`) on the rising edge of the system clock (`CLK`) to maintain proper pipeline staging. | [Test case, waveform, calculation, or inspection] |
 
 ## Architecture
 
