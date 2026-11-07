@@ -60,8 +60,8 @@ The design is verified using **Simulation**.
 Verification covers:
 
 - Validated core instruction classes across 50 ns stimulus intervals in `execute_tb`, successfully executing R-type operations (`add` with function `6'h20`, `sub` with `6'h22`, `and` with `6'h24`, `or` with `6'h25`, and `slt` with `6'h2A`), driving correct functional selection lines into the ALU and routing register fields via `instr_2016` and `instr_1511`.
-- Tested sign-extended immediate values (`s_extend_tb`) through TOP_MUX_TOP and verified that the Branch Target Adder (ADDER_TOP) correctly computes PC-relative branch addresses by combining npc_tb and s_extend_tb.
-- Monitored the initial 10 ns clock cycles and positive clock edges (posedge clk_tb) to ensure all pipelined latch outputs (ctlwb_out_latch, ctlm_out_latch, adder_result_latch, alu_result_latch, zero_latch) initialize and propagate without timing skew.
+- Tested sign-extended immediate values (`s_extend_tb`) through `TOP_MUX_TOP` and verified that the Branch Target Adder (`ADDER_TOP`) correctly computes PC-relative branch addresses by combining `npc_tb` and `s_extend_tb`.
+- Monitored the initial 10 ns clock cycles and positive clock edges (`posedge clk_tb`) to ensure all pipelined latch outputs (`ctlwb_out_latch`, `ctlm_out_latch`, `adder_result_latch`, `alu_result_latch`, `zero_latch`) initialize and propagate without timing skew.
 - Verified that random instruction inputs and unhandled function codes safely resolve through the ALU control decoder without corrupting adjacent datapath signals.
 
 ### Testbench and Waveform
