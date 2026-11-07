@@ -13,5 +13,5 @@ input wire [4:0] b, // Input 0 of Multiplexer
 input wire sel // Select Input
    );
    
-   assign y = sel ? a : b;
+   assign y = sel ? b : a; // 1 = b, 0 = a
 endmodule // mux
