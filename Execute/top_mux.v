@@ -9,5 +9,5 @@ input wire [31:0] b,
 input wire alusrc // Select Input
    );
    
-   assign y = alusrc ? a : b;
+   assign y = alusrc ? b : a; // 1 = b, 0 = a
 endmodule // mux
