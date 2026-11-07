@@ -1,4 +1,4 @@
-# Lab [Number] — [Lab or Module Title]
+# Coding Assignment 3 - Execute
 
 <!--
 Replace every item in square brackets before submitting.
@@ -7,7 +7,7 @@ Keep this README focused on what the design does, how it is used, and how it was
 
 ## Design Scope and Assumptions
 
-- **In scope:** [What this lab implements]
+- **In scope:** Implement Execute stage of the MIPS, including ALU operations, ALU Control, adder, multiplexers, and ex/mem pipeline. 
 - **Out of scope:** [What this lab intentionally does not implement]
 - **Assumptions:** [Clock frequency, reset behavior, data width, memory model, or other assumptions]
 - **Limitations:** [Known limitations or simplified behaviors]
@@ -34,9 +34,13 @@ Save diagrams in the repository's `images/` folder. Use relative paths so they d
 
 | File | Description |
 |---|---|
-| [`[module].v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
-| [`[component].v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
-| [`[testbench].v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`execute.v`](LINK_TO_IMPLEMENTATION_CODE) | Top-level Execute-stage integration module.|
+| [`adder.v`](LINK_TO_COMPONENT_CODE) | 32-bit adder for branch-target address calculation.|
+| [`top_mux.v`](LINK_TO_TESTBENCH_CODE) | Multiplexer that selects the destination register based on RegDst.|
+| [`bottom_muc.v`](LINK_TO_TESTBENCH_CODE) |Multiplexer that selects the ALU's second operand based on ALUSrc.|
+| [`alu.v`](LINK_TO_TESTBENCH_CODE) | 32-bit ALU supporting ADD, SUB, AND, OR, and SLT.|
+| [`alu_control.v`](LINK_TO_TESTBENCH_CODE) | Generates ALU operation signals from ALUOp and function code.|
+| [`ex_mem.v`](LINK_TO_TESTBENCH_CODE) | Rising-edge EX/MEM pipeline register storing results and control signals.|
 
 ### Implementation Notes
 
