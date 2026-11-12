@@ -7,7 +7,7 @@ module memory(
     input wire zero,
     input wire [31:0] alu_result, rdata2out,
     input wire [4:0] five_bit_muxout,
-    output wire MEM_Src, //from AND gate
+    output wire MEM_PCSrc, //from AND gate
     output wire MEM_WB_regwrite, MEM_WB_memtoreg,
     output wire [31:0] read_data, mem_alu_result,
     output wire [4:0] mem_write_reg

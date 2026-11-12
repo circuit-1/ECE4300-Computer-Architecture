@@ -8,25 +8,26 @@ module memoryTB();
     reg MemWrite, MemRead, Branch, Zero;
     wire [31:0] ReadData, ALUResult_out;
     wire [4:0] WriteReg_out;
-    wire [1:0] WBControl_out;
-    wire PCSrc;
+    wire RegWrite_out, MemToReg_out, PCSrc;
 
     memory uut (
         .clk(clk),
-        .ALUResult(ALUResult),
-        .WriteData(WriteData),
-        .WriteReg(WriteReg),
-        .WBControl(WBControl),
-        .MemWrite(MemWrite),
-        .MemRead(MemRead),
-        .Branch(Branch),
-        .Zero(Zero),
-        .ReadData(ReadData),
-        .ALUResult_out(ALUResult_out),
-        .WriteReg_out(WriteReg_out),
-        .WBControl_out(WBControl_out),
-        .PCSrc(PCSrc)
+        .wb_ctlout(WBControl),
+        .branch(Branch),
+        .memread(MemRead),
+        .memwrite(MemWrite),
+        .zero(Zero),
+        .alu_result(ALUResult),
+        .rdata2out(WriteData),
+        .five_bit_muxout(WriteReg),
+        .MEM_PCSrc(PCSrc),
+        .MEM_WB_regwrite(RegWrite_out),
+        .MEM_WB_memtoreg(MemToReg_out),
+        .read_data(ReadData),
+        .mem_alu_result(ALUResult_out),
+        .mem_write_reg(WriteReg_out)
     );
+
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
@@ -37,7 +38,7 @@ module memoryTB();
     ALUResult = 32'h00000004;
     WriteData = 32'h12345678;
     WriteReg = 5'h02;
-    WBControl = 2'b01;
+    WBControl = 2'b11;
     MemWrite = 0;
     MemRead = 1;
     Branch = 0;

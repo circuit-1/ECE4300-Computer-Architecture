@@ -1,5 +1,4 @@
-/* This is the latch that receives signals form all the modules of the memory stage. Its outputs go to mux of WRITE-BACK Stage and FETCH.
-*/
+/* This is the latch that receives signals form all the modules of the memory stage. Its outputs go to mux of WRITE-BACK Stage and FETCH.*/
 module mem_wb(
     input wire clk,
     input wire [1:0] control_wb_in,

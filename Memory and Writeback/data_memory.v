@@ -18,7 +18,7 @@ module data_memory (
     read_data <= 0;
     //  Initialize DMEM[0-5] from data.txt
     //  This is testing the MIPS datapath (lab 6)
-    $readmemb("data.txt",DMEM);
+    $readmemb("data.mem",DMEM);
     for (i = 0; i < 6; i = i + 1)
     //$display(DMEM[i]);
     $display("\tDMEM[%0d] = %0b", i, DMEM[i]);
