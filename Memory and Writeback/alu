@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+module alu(
+    input wire [31:0] a, //readdata1
+    input wire [31:0] b, //readdata2
+    input wire [2:0] control,//select from alu_control
+    output reg [31:0] result, //goes to EX/MEM latch latch
+    output wire zero // goes to EX/MEM latch
+    );
+parameter ALUadd = 3'b010,
+ALUsub = 3'b110,
+ALUand = 3'b000,     
+ALUor = 3'b001,
+ALUslt = 3'b111;
+// Handles negative inputs
+always @* begin
+    case (control)
+        ALUadd: result = a + b;
+        ALUsub: result = a - b;
+        ALUand: result = a & b;
+        ALUor:  result = a | b;
+        // SLT is a signed comparison, as required by the MIPS operation.
+        ALUslt: result = ($signed(a) < $signed(b)) ? 32'd1 : 32'd0;
+        default: result = 32'bX;
+    endcase
+end
+//zero check
+assign zero = (result == 32'd0);
+endmodule
+//If the input information does not correspond to any valid instruction,
+//aluop = 2'b11 which sets control = ALUx = 3'b011 
+//and ALU output is 32 x's
