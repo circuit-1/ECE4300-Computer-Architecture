@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module mux(
+module data2_mux(
 output wire [31:0] y,//output
 input wire [31:0] a,//readdata2
 input wire [31:0] b,//signextend
