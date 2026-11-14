@@ -5,11 +5,10 @@ Keep this README focused on what the design does, how it is used, and how it was
 verified.
 -->
 ## Design Scope and Assumptions
-- **In scope:** [What this lab implements]
-- **Out of scope:** [What this lab intentionally does not implement]
-- **Assumptions:** [Clock frequency, reset behavior, data width, memory model, or
-other assumptions]
-- **Limitations:** [Known limitations or simplified behaviors]
+- **In scope:** Implementation and RTL verification of the 32-bit MIPS Memory (MEM) stage, the `MEM/WB` pipeline latch, and the Write-Back (WB) multiplexer (`memory.v`), including branch decision logic (`and.v`), synchronous data memory read/write operations (`data_memory.v`), and write-back data selection (`mux.v`).
+- **Out of scope:** Instruction Fetch (IF), Instruction Decode (ID), Execute (EX) ALU/adder logic, hazard detection, and forwarding units.
+- **Assumptions:** 32-bit word-aligned memory addressing (`alu_result` as memory address), synchronous positive-edge triggered operations driven by a `10 ns` period (`100 MHz`) clock (`#5` half-period in `memory_tb`), preloaded memory contents from `data.mem` / `data.txt`, and 5-bit register destination addressing (`five_bit_muxout`).
+- **Limitations:** Standalone stage verification using directed stimulus vectors in `memory_tb` and `And_tb` rather than full multi-stage instruction execution; Data Memory depth is bounded to the initialized simulation memory file.
 ## Requirements
 | Requirement | Description | Verification Method |
 |---|---|---|
@@ -21,16 +20,19 @@ inspection] |
 inspection] |
 ## Architecture
 ### Timing or Behavioral Summary
-Save diagrams in the repository's `images/` folder. Use relative paths so they
-display on GitHub.
 ![Timing Diagram](Waveforms/memory_tb.png)
 ## Implementation
 ### Source Code
 | File | Description |
 |---|---|
-| [`[module].v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
-| [`[component].v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
-| [`[testbench].v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`memory.v`](memory.v) | Top-level structural module connecting Data Memory, Branch `AND` gate, `MEM/WB` latch, and WB Mux |
+| [`data_memory.v`](data_memory.v) | Synchronous 32-bit Data Memory module (`memread`, `memwrite`) initialized via memory data file |
+| [`mem_wb_latch.v`](mem_wb_latch.v) | `MEM/WB` pipeline register latching control signals, memory data, ALU result, and destination register |
+| [`and.v`](and.v) | Combinational `AND` gate generating `PCSrc` from `membranch` and `zero` |
+| [`mux.v`](mux.v) | 32-bit 2-to-1 Write-Back multiplexer controlled by `MemtoReg` |
+| [`data.mem`](data.mem) / [`data.txt`](data.txt) | Initial memory contents loaded into Data Memory during simulation |
+| [`Testbench/memory_tb.v`](Testbench/memory_tb.v) | Integrated stage testbench (`memoryTB`) verifying memory read, write, read-back, and branch logic |
+| [`Testbench/And_tb.v`](Testbench/And_tb.v) | Standalone unit testbench (`And_tb`) verifying all 4 input combinations of the branch `AND` gate[cite: 2, 3] |
 ### Implementation Notes
 - [Explain one important design decision.]
 - [Identify any parameterization, reusable module, or interface convention.]
@@ -45,9 +47,8 @@ Verification covers:
 - [Reset or initialization case]
 - [Invalid, stalled, or exceptional case, if applicable]
 ### Testbench and Waveform
-Save screenshots and waveform images in the repository's `images/` folder.
-![Testbench or waveform](images/[testbench-screenshot-filename].png)
-The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
+![Timing Diagram](Waveforms/memory_tb.png)
+The testbench source is available [*here*](Testbench/memory_tb.v).
 ### Results
 | Test Case | Expected Result | Observed Result | Status |
 |---|---|---|---|
