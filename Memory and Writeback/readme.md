@@ -12,10 +12,10 @@ verified.
 ## Requirements
 | Requirement | Description | Verification Method |
 |---|---|---|
-| REQ-01 | The branch decision gate (`and.v`) shall assert `MEM_PCSrc` (`PCSrc`) if and only if both `branch` (`membranch`) and `zero` flags are high (`1`). | Directed truth-table simulation (`And_tb`) & integrated testbench (`memoryTB`) |
-| REQ-02 | The Data Memory module (`data_memory.v`) shall read 32-bit words from `alu_result` when `memread` is asserted and write `rdata2out` to `alu_result` on the rising edge of `clk` when `memwrite` is asserted. | Read/write/read-back sequence in `memoryTB` |
-| REQ-03 | The `MEM/WB` pipeline latch (`mem_wb_latch.v`) shall capture `wb_ctlout` (`MEM_WB_regwrite`, `MEM_WB_memtoreg`), `read_data`, `alu_result`, and `five_bit_muxout` on the rising edge of `clk`. | Waveform inspection across `10 ns` clock cycles in `memoryTB` |
-| REQ-04 | The Write-Back multiplexer (`mux.v`) shall select `read_data` when `MEM_WB_memtoreg = 1` and `mem_alu_result` when `MEM_WB_memtoreg = 0` to drive `WriteData` to the Decode stage. | Control signal routing verification (`WBControl = 2'b11`) in `memoryTB`[cite: 1, 2, 3] |
+| REQ-01 | The branch decision gate (`and.v`) shall assert `MEM_PCSrc` (`PCSrc`) if and only if both `branch` (`membranch`) and `zero` flags are high (`1`). | `memory_tb.b`, `And_tb.v`, `Waveforms/add.png` and `Waveforms/memory_tb.png` |
+| REQ-02 | The Data Memory module (`data_memory.v`) shall read 32-bit words from `alu_result` when `memread` is asserted and write `rdata2out` to `alu_result` on the rising edge of `clk` when `memwrite` is asserted. | `memory_tb.b` and `Waveforms/memory_tb.png`|
+| REQ-03 | The `MEM/WB` pipeline latch (`mem_wb_latch.v`) shall capture `wb_ctlout` (`MEM_WB_regwrite`, `MEM_WB_memtoreg`), `read_data`, `alu_result`, and `five_bit_muxout` on the rising edge of `clk`. | `memory_tb.b` and `Waveforms/memory_tb.png` |
+| REQ-04 | The Write-Back multiplexer (`mux.v`) shall select `read_data` when `MEM_WB_memtoreg = 1` and `mem_alu_result` when `MEM_WB_memtoreg = 0` to drive `WriteData` to the Decode stage. | `memory_tb.b` and `Waveforms/memory_tb.png` |
 ## Architecture
 ### Timing or Behavioral Summary
 ![Timing Diagram](Waveforms/memory_tb.png)
@@ -30,11 +30,11 @@ verified.
 | [`mux.v`](mux.v) | 32-bit 2-to-1 Write-Back multiplexer controlled by `MemtoReg` |
 | [`data.mem`](data.mem) / [`data.txt`](data.txt) | Initial memory contents loaded into Data Memory during simulation |
 | [`Testbench/memory_tb.v`](Testbench/memory_tb.v) | Integrated stage testbench (`memoryTB`) verifying memory read, write, read-back, and branch logic |
-| [`Testbench/And_tb.v`](Testbench/And_tb.v) | Standalone unit testbench (`And_tb`) verifying all 4 input combinations of the branch `AND` gate[cite: 2, 3] |
+| [`Testbench/And_tb.v`](Testbench/And_tb.v) | Standalone unit testbench (`And_tb`) verifying all 4 input combinations of the branch `AND` gate |
 ### Implementation Notes
-- **Control Bus Splitting:** The 2-bit `wb_ctlout` bus entering `mem_wb_latch.v` is split upon exit into `MEM_WB_regwrite` (routed to the Decode stage) and `MEM_WB_memtoreg` (driving the select line of `mux.v`)[cite: 1].
-- **Modular Hierarchy:** Each datapath element (`and.v`, `data_memory.v`, `mem_wb_latch.v`, `mux.v`) is encapsulated in its own Verilog file and wired together in `memory.v` to simplify unit testing and full-CPU integration[cite: 3].
-- **Deterministic Memory Preload:** `data.mem` and `data.txt` preload known 32-bit values at simulation start so initial `memread` cycles return predictable data prior to any write operations[cite: 3].
+- **Control Bus Splitting:** The 2-bit `wb_ctlout` bus entering `mem_wb_latch.v` is split upon exit into `MEM_WB_regwrite` (routed to the Decode stage) and `MEM_WB_memtoreg` (driving the select line of `mux.v`).
+- **Modular Hierarchy:** Each datapath element (`and.v`, `data_memory.v`, `mem_wb_latch.v`, `mux.v`) is encapsulated in its own Verilog file and wired together in `memory.v` to simplify unit testing and full-CPU integration.
+- **Deterministic Memory Preload:** `data.mem` and `data.txt` preload known 32-bit values at simulation start so initial `memread` cycles return predictable data prior to any write operations.
 ## Verification
 ### Verification Strategy
 The design is verified using **RTL behavioral simulation in Vivado**.
@@ -42,7 +42,7 @@ Verification covers:
 - **Unit-level branch logic (`And_tb`):** Exhaustively testing all four `{membranch, zero}` combinations (`11`, `01`, `10`, `00`) at `50 ns` intervals to confirm `PCSrc` only asserts when both are `1`.
 - **Initial Memory Read (`memoryTB`, `t = 0–10 ns`):** Asserting `MemRead = 1` at `ALUResult = 32'h00000004` with `WBControl = 2'b11` and `WriteReg = 5'h02` to verify preloaded memory retrieval and pipeline latching.
 - **Memory Write & Read-Back (`memoryTB`, `t = 10–30 ns`):** Writing `WriteData = 32'h12345678` to address `32'h00000004` (`MemWrite = 1`) for one `10 ns` clock cycle, then re-asserting `MemRead = 1` (`MemWrite = 0`) to confirm the updated value is read back.
-- **Integrated Branch Assertion (`memoryTB`, `t = 30–40 ns`):** Asserting `Branch = 1` and `Zero = 1` to confirm `PCSrc` transitions high in the integrated `memory` module[cite: 2, 3].
+- **Integrated Branch Assertion (`memoryTB`, `t = 30–40 ns`):** Asserting `Branch = 1` and `Zero = 1` to confirm `PCSrc` transitions high in the integrated `memory` module.
 ### Testbench and Waveform
 ![Timing Diagram](Waveforms/memory_tb.png)
 The testbench source is available [*here*](Testbench/memory_tb.v).
