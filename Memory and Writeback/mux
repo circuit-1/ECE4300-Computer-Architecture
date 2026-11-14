@@ -1,0 +1,10 @@
+`timescale 1ns / 1ps
+module instr_mux(
+output wire [31:0] y,//output
+input wire [31:0] a,/mem alu result
+input wire [31:0] b,//read data
+input wire memtoreg // Select Input
+   );
+   
+   assign y = memtoreg ? b : a; // 1 = b, 0 = a
+endmodule
