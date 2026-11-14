@@ -73,12 +73,20 @@ Expected output:
 ## Repository Organization
 ```text
 .
-├── README.md
-├── images/
-│ ├── [timing-diagram-filename].png
-│ └── [testbench-screenshot-filename].png
-├── [source-files]
-└── [testbench-files]
+├── readme.md
+├── Testbench/
+│ ├── And_tb.v
+│ └── memory_tb.v
+├── Waveforms/
+│ ├── add.png
+│ └── memory_tb.png
+├── and.v
+├── data.mem
+├── data.txt
+├── data_memory.v
+├── mem_wb_latch.v
+├── memory.v
+└── mux.v
 ```
 ## Known Issues and Future Improvements
 - [Document any known issue, unverified behavior, or technical debt.]
