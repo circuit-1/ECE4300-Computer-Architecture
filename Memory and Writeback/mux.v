@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 module instr_mux(
 output wire [31:0] y,//output
-input wire [31:0] a,/mem alu result
+input wire [31:0] a,//mem alu result
 input wire [31:0] b,//read data
 input wire memtoreg // Select Input
    );
