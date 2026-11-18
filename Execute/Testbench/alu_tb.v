@@ -34,6 +34,10 @@ module alu_tb();
                 a_tb = 32'h01; 
                 b_tb = 32'h03; 
                 control_tb = 3'b010; // add
+            #50
+                a_tb = 32'h12;
+                b_tb = 32'h12;
+                control_tb = 3'b110; 
             #100
                 $finish; 
             end             
