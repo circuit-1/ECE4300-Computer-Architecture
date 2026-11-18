@@ -68,6 +68,9 @@ Waveform screenshots are stored in the repository’s `Waveforms/` folder.
 
 
 ![Testbench or waveform](Waveforms/execute.png)
+The top testbench showing all of the ALU operations using `rtype`
+![Testbench or waveform](Waveforms/alu.png)
+The ALU testbench showing the `SW`, `LW`, and `Branch Equal` operations
 
 The testbench source is available [*here*](Testbench/execute_tb.v). Unit testbenches are available for the [adder](Testbench/adder_tb.v), [alu_control](Testbench/alu_control_tb.v), [alu](Testbench/alu_tb.v), [bottom_mux](Testbench/bottom_mux_tb.v), [ex_mem](Testbench/ex_mem.v), [top_mux](Testbench/top_mux_tb.v).
 
