@@ -28,7 +28,7 @@ pc pc0(
     .pc_out(pc_out)
 );
 
-adder add0( 
+pc_adder add0( 
     .clk(clk),
     .reset(rst),
     .pcin(pc_out),
