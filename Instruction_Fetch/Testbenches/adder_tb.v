@@ -26,7 +26,7 @@ module adder_tb();
     reg [31:0] pcin_tb; 
     wire [31:0] pcout_tb; 
 
-    adder TB (
+    pc_adder TB (
                 .clk(clk_tb),
                 .reset(reset_tb),
                 .pcin(pcin_tb),
