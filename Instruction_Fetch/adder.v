@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module adder(
+module pc_adder(
                 input clk,
                 input reset,
                 input [31:0] pcin,
