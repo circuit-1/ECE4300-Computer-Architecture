@@ -28,7 +28,7 @@ module adder(
             );
   always @(posedge clk) begin
     if(reset) begin
-      assign pcout = 32'd0
+      assign pcout = 32'd0;
     end else begin
       assign pcout = pcin + 32'd1;
     end
