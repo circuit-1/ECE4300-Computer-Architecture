@@ -17,11 +17,12 @@ module control(
                     end 
                 else 
                     case(opcode)
-                        6'b000_000: ctrl = 9'b10_000_1100; // R-format
-                        6'b100_011: ctrl = 9'b11_010_0001; // LW
-                        6'b101_011: ctrl = 9'b0x_001_x001; // SW
-                        6'b000_100: ctrl = 9'b0x_100_x010; // BEQ
-                        default: ctrl = 9'b00_000_0000; 
+                        6'b000_000: ctrl = 9'b10_000_0110; // R-format
+                        6'b100_011: ctrl = 9'b11_010_1000; // LW
+                        6'b101_011: ctrl = 9'b00_001_1000; // SW
+                        6'b000_100: ctrl = 9'b00_100_0001; // BEQ
+                        6'b001_000: ctrl = 9'b10_000_1000; // ADDI
+                        default:    ctrl = 9'b00_000_0000;
                     endcase 
             end      
         
