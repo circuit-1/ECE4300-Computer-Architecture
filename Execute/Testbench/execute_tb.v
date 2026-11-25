@@ -115,7 +115,63 @@ module execute_tb();
                 instr_1511_tb = 5'd11; 
                 alusrc_tb = 1'b1;
                 regsdt_tb = 1'b0;
-            #100 
-                $finish;
+              #50 
+                // Memory Reference: LW (Load Word - Address Calculation: base + offset)
+                ctlwb_in_tb  = 2'b11; // RegWrite = 1, MemtoReg = 1 (Mem data to reg)
+                ctlm_in_tb   = 3'b100; // MemRead = 1, MemWrite = 0, Branch = 0
+                npc_tb       = 32'h00000038;
+                rdata1_tb    = 32'h1000; // Base address
+                rdata2_tb    = 32'd0; 
+                s_extend_tb  = 32'h00000004; // Offset = 4
+                instr_2016_tb= 5'd8;  // rt (destination for lw)
+                instr_1511_tb= 5'd0;  // unused for lw dest mux
+                alusrc_tb    = 1'b1;   // Select immediate/offset
+                regsdt_tb    = 1'b0;   // RegDst = 0 (selects rt)
+                alu_op_tb    = 2'b00;  // Addition for address calc
+             
+             #50 
+                // Memory Reference: SW (Store Word - Address Calculation)
+                ctlwb_in_tb  = 2'b00; // RegWrite = 0
+                ctlm_in_tb   = 3'b010; // MemRead = 0, MemWrite = 1, Branch = 0
+                npc_tb       = 32'h0000003C;
+                rdata1_tb    = 32'h1000; // Base address
+                rdata2_tb    = 32'hABCD; // Data to store
+                s_extend_tb  = 32'h00000008; // Offset = 8
+                instr_2016_tb= 5'd9;  // rt (source data register)
+                instr_1511_tb= 5'd0; 
+                alusrc_tb    = 1'b1;   // Select immediate/offset
+                regsdt_tb    = 1'b0;   
+                alu_op_tb    = 2'b00;  // Addition
+             
+             #50 
+                // Branch Equal: BEQ (Equal case -> zero_latch should be 1)
+                ctlwb_in_tb  = 2'b00; 
+                ctlm_in_tb   = 3'b001; // Branch = 1
+                npc_tb       = 32'h00000040; // NPC ready for branch adder target calc
+                rdata1_tb    = 32'd42; 
+                rdata2_tb    = 32'd42; // Equal values -> subtract results in zero
+                s_extend_tb  = 32'h00000005; // Branch offset
+                instr_2016_tb= 5'd2; 
+                instr_1511_tb= 5'd3; 
+                alusrc_tb    = 1'b0;   // Compare two registers
+                regsdt_tb    = 1'b0; 
+                alu_op_tb    = 2'b01;  // Subtraction for branch comparison
+                
+             #50 
+                // Branch Equal: BEQ (Not equal case -> zero_latch should be 0)
+                ctlwb_in_tb  = 2'b00; 
+                ctlm_in_tb   = 3'b001; // Branch = 1
+                npc_tb       = 32'h00000044;
+                rdata1_tb    = 32'd42; 
+                rdata2_tb    = 32'd99; // Different values
+                s_extend_tb  = 32'h00000005; 
+                instr_2016_tb= 5'd2; 
+                instr_1511_tb= 5'd3; 
+                alusrc_tb    = 1'b0; 
+                regsdt_tb    = 1'b0; 
+                alu_op_tb    = 2'b01;  // Subtraction
+        
+            #100                
+              $finish;
             end     
 endmodule
